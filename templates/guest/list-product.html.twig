@@ -1,0 +1,28 @@
+{% extends 'base.html.twig' %}
+
+        {% block metatitle %}
+        <title>List-product</title>
+        {% endblock metatitle %}
+
+{% block main %}
+
+<main>
+
+    <section id="article-order">
+	
+		{% for product in products %}
+
+			<article style="background-color: grey">
+				<h2>{{ product.title }}</h2>
+                <p>{{ product.description}}</p>
+                <p>Prix : {{ product.price }} euros</p>
+              	<p>Créé le {{ product.createdAt | date()}}</p>
+                <p>Modifié le {{ product.updatedAt | date()}}</p>
+			</article>
+
+		{% endfor %}
+
+	</section>
+
+</main>
+{% endblock main %}

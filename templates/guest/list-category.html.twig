@@ -1,0 +1,27 @@
+{% extends 'base.html.twig' %}
+
+        {% block metatitle %}
+        <title>List-category</title>
+        {% endblock metatitle %}
+
+{% block main %}
+
+<main>
+
+    <section id="article-order">
+	
+		{% for category in categories %}
+
+			<article style="background-color: grey">
+				<h2>{{ category.title }}</h2>
+                <p>{{ category.description}}</p>
+              	<p>Créé le {{ category.createdAt | date()}}</p>
+                <p>Modifié le {{ category.updatedAt | date()}}</p>
+			</article>
+
+		{% endfor %}
+
+	</section>
+
+</main>
+{% endblock main %}

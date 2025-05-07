@@ -16,6 +16,16 @@ class ProductRepository extends ServiceEntityRepository
         parent::__construct($registry, Product::class);
     }
 
+  
+    // public function findAllPublished($isPublished = true) {
+    // return $this->createQueryBuilder('p')
+    //     ->where('p.isPublished = :isPublished')
+    //     ->setParameter('isPublished', $isPublished)
+    //     ->getQuery()
+    //     ->getResult();
+    // }
+
+
     //    /**
     //     * @return Product[] Returns an array of Product objects
     //     */
