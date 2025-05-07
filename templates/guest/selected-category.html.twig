@@ -1,0 +1,23 @@
+{% extends 'base.html.twig' %}
+
+        {% block metatitle %}
+        <title>Single-category</title>
+        {% endblock metatitle %}
+
+{% block main %}
+<main>
+
+    <section>
+			<article style="background-color: grey">
+				<h2>{{ category.title }}</h2>
+				<p>{{ category.description }}</p>
+				<p style="color: {{ category.color }}">{{ category.color }}</p>
+				<p>Créée le {{ category.createdAt | date()}}</p>	
+                <p>Modifiée le {{ category.updatedAt | date()}}</p>	
+			</article>
+	</section>
+
+
+
+</main>
+{% endblock main %}

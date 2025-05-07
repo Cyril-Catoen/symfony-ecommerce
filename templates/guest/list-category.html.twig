@@ -17,6 +17,7 @@
                 <p>{{ category.description}}</p>
               	<p>Créé le {{ category.createdAt | date()}}</p>
                 <p>Modifié le {{ category.updatedAt | date()}}</p>
+                <a href="{{ path('single-category', { 'id': category.id }) }}">Voir cette categorie</a>
 			</article>
 
 		{% endfor %}

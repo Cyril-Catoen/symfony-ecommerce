@@ -18,6 +18,7 @@
                 <p>Prix : {{ product.price }} euros</p>
               	<p>Créé le {{ product.createdAt | date()}}</p>
                 <p>Modifié le {{ product.updatedAt | date()}}</p>
+                <p>{{ product.isPublished}}</p>
 			</article>
 
 		{% endfor %}

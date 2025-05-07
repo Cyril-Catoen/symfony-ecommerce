@@ -24,5 +24,22 @@ class CategoryController extends AbstractController {
 		]);
 		
 	}
+
+    #[Route('/single-category/{id}', name: 'single-category')]
+	public function displaySinglecategories($id, categoryRepository $categoryRepository) {
+
+		// permet de faire une requête SQL SELECT * sur la table category et de sélectionner un item par ID
+		$category = $categoryRepository->find($id);
+
+		// Si l'id demandé ne correspond à aucun category
+		// Alors l'utilisateur est redirigé vers une page d'erreur 404.
+		// Sinon l'category avec l'id correspond est affiché.
+		if (!$category) {
+			return $this->redirectToRoute('404');
+		}
+		return $this->render('guest\selected-category.html.twig', [
+			'category' => $category
+		]);
+	}
 }
 ?>

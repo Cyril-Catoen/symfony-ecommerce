@@ -17,18 +17,18 @@ class ProductController extends AbstractController {
     public function displayListProduct(ProductRepository $ProductRepository) {
 
         // Récupérer tous les produits
-        $products = $ProductRepository->findAll();
+        $products = $ProductRepository->findBy(['isPublished' => true]);
         
-        // Filtrer les produits publiés
-        $publishedProducts = [];
-        foreach ($products as $product) {
-            if ($product->isPublished() === true) {
-                $publishedProducts[] = $product;
-            }
-        }
+        // Filtrer les produits publiés // Méthode pas optimale en cas de grosse BDD.
+        // $publishedProducts = [];
+        // foreach ($products as $product) {
+        //     if ($product->isPublished() === true) {
+        //         $publishedProducts[] = $product;
+        //     }
+        // }
 
         return $this->render('guest/list-product.html.twig', [
-            'products' => $publishedProducts
+            'products' => $products
         ]);
     }
 }
