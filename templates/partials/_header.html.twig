@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+        <!-- Permet de configurer le site en responsive -->
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+        <!-- Import du fichier style.css -->
+        <link rel="stylesheet" href="{{ asset('assets/css/style.css') }}?v={{ app.request.server.get('REQUEST_TIME') }}" />
+
+        {% block metatitle %}
+        {% endblock metatitle %}
+     
+</head>
+<body>
+    <header>
+    <img src="https://svgsilh.com/svg/2113962.svg" alt="logo articles" />
+            <nav>
+                <ul>
+                    <li><a href="{{ path('home') }}">Home</a></li>
+                </ul>
+            </nav>
+    </header>
