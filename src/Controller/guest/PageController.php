@@ -1,6 +1,6 @@
 <?php 
 
-namespace App\Controller;
+namespace App\Controller\guest;
 
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
@@ -11,7 +11,7 @@ class PageController extends AbstractController {
 	#[Route('/', name: "home")]
 	public function displayHome() {
 
-		return $this->render('home.html.twig');
+		return $this->render('guest\home.html.twig');
 	}
 
 	#[Route('/404', name: "404")]
