@@ -10,18 +10,37 @@
 
     <section id="article-order">
 
-		{% for product in products %}
+      <table>
+          <tr>
+            <th>Id</th>
+            <th>Titre</th>
+            <th>Prix</th>
+            <th>Catégorie</th>
+            <th>Date de création</th>
+            <th>Date de modification</th>
+          </tr>
 
-			<article style="background-color: grey">
-				<h2>{{ product.title }}</h2>
-                <p>{{ product.description}}</p>
-                <p>Prix : {{ product.price }} euros</p>
-              	<p>Créé le {{ product.createdAt | date()}}</p>
-                <p>Modifié le {{ product.updatedAt | date()}}</p>
-                <p>{{ product.isPublished}}</p>
-			</article>
 
-		{% endfor %}
+        {% for product in products %} 
+
+          <tr>
+            <td>{{ product.id }}</td>
+            <td>{{ product.title }}</td>
+            <td>{{ product.price }}</td>
+            <td>{{ product.category.title }}</td>
+            <td>{{ product.createdAt | date('d-m-Y') }}</td>
+            <td>  
+              {% if product.updatedAt %}
+              {{ product.updatedAt | date('d-m-Y') }}
+              {% else %}
+                -
+              {% endif %}
+            </td>
+          </tr>
+
+        {% endfor %}
+
+      </table>
 
 	</section>
 
