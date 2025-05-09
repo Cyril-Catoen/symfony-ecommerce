@@ -27,7 +27,7 @@ class ProductController extends AbstractController {
         //     }
         // }
 
-        return $this->render('guest/list-product.html.twig', [
+        return $this->render('guest/product/list-product.html.twig', [
             'products' => $products
         ]);
     }

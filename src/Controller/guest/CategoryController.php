@@ -19,7 +19,7 @@ class CategoryController extends AbstractController {
 		// permet de faire une requête SQL SELECT * sur la table category
 		$categories = $categoryRepository->findAll();
 
-		return $this->render('guest\list-category.html.twig', [
+		return $this->render('guest\category\list-category.html.twig', [
 			'categories' => $categories
 		]);
 		
@@ -37,7 +37,7 @@ class CategoryController extends AbstractController {
 		if (!$category) {
 			return $this->redirectToRoute('404');
 		}
-		return $this->render('guest\selected-category.html.twig', [
+		return $this->render('guest\category\selected-category.html.twig', [
 			'category' => $category
 		]);
 	}
