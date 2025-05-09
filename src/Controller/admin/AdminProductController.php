@@ -56,7 +56,7 @@ class AdminProductController extends AbstractController {
 
              // Redirige vers la liste des produits avec un message de succès
              $this->addFlash('success', 'Produit ajouté avec succès !');
-             
+
             } catch (\Exception $exception) {
                 $this->addFlash('error', $exception->getMessage());
             }
@@ -67,5 +67,23 @@ class AdminProductController extends AbstractController {
      
 		return $this->render('admin/product/create-product.html.twig', ['categories' => $categories]); // on affiche la vue et lui communique les données récupérées dans le repository Category
     }
+
+    #[Route('/admin/delete-product/{id}', name: "admin/delete-product")]
+	public function deleteProduct($id, ProductRepository $productRepository, EntityManagerInterface $entityManager) 
+		{
+			// On cible le produit à supprimer par son id unique.
+			$product = $productRepository->find($id);
+	
+			// On utilise la méthode remove de la classe EntityManager 
+			// On prend en paramètre le produit à supprimer
+			$entityManager->remove($product);
+			$entityManager->flush();
+	
+			// On ajoute un message flash pour notifier que l'article est supprimé
+			$this->addFlash('success', 'The product has been deleted');
+	
+			// On redirige vers la page de liste mis à jour
+			return $this->redirectToRoute('admin/list-product');
+		}
 }
 ?>
