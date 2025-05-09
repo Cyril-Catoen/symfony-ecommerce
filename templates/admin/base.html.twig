@@ -3,12 +3,13 @@
     {% block metatitle %}
     {% endblock metatitle %}
 
-
     {% for message in app.flashes('success') %}
-		<div class="success-message">
-			<p>{{message}}</p>
-		</div>
-	{% endfor %}
+    <div class="alert-success">{{ message }}</div>
+    {% endfor %}
+
+    {% for message in app.flashes('error') %}
+        <div class="alert-danger">{{ message }}</div>
+    {% endfor %}
 
     {% block main %}
     {% endblock main %}

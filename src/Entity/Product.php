@@ -3,6 +3,7 @@
 namespace App\Entity;
 
 use App\Repository\ProductRepository;
+use Symfony\Component\Config\Definition\Exception\Exception;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
@@ -37,6 +38,10 @@ class Product
     private ?Category $category = null;
 
     public function __construct($title, $description, $price, $isPublished, $category) {
+
+        if (strlen($title) < 3) {
+            throw new Exception('Le titre doit faire plus de 3 caractères');
+        }
 
 		$this->title = $title;
 		$this->description = $description;

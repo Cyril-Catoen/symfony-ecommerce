@@ -47,14 +47,21 @@ class AdminProductController extends AbstractController {
 			// On récupère la catégorie complète liée à l'id récupéré (grâce à la classe CategoryRepository)
 			$category = $categoryRepository->find($categoryId);
 
+            try {
              // On créé une instance de product
             $product = new Product($title, $description, $price, $isPublished, $category);
             
             $entityManager->persist($product);
             $entityManager->flush();
 
-            // Redirige vers la liste des produits avec un message de succès
-            $this->addFlash('success', 'Produit ajouté avec succès !');
+             // Redirige vers la liste des produits avec un message de succès
+             $this->addFlash('success', 'Produit ajouté avec succès !');
+             
+            } catch (\Exception $exception) {
+                $this->addFlash('error', $exception->getMessage());
+            }
+
+           
             return $this->redirectToRoute('admin/list-product');
         }
      
