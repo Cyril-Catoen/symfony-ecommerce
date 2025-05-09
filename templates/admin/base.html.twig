@@ -1,0 +1,18 @@
+{% include 'admin/partials/_header.html.twig' %}
+
+    {% block metatitle %}
+    {% endblock metatitle %}
+
+
+    {% for message in app.flashes('success') %}
+		<div class="success-message">
+			<p>{{message}}</p>
+		</div>
+	{% endfor %}
+
+    {% block main %}
+    {% endblock main %}
+
+      
+{% include 'admin/partials/_footer.html.twig' %}
+   

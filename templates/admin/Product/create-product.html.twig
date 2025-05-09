@@ -1,0 +1,40 @@
+{% extends 'admin/base.html.twig' %}
+
+        {% block metatitle %}
+        <title>Create-product</title>
+        {% endblock metatitle %}
+
+{% block main %}
+<main>
+
+	<h1>Ajouter un produit</h1>
+	<form action="" method="POST">
+
+		<label>Title
+			<input type="text" name="title">
+		</label>
+
+
+		<label>Description
+			<input type="text" name="description">
+		</label>
+
+		<label>Price
+			<input type="number" name="price" step="0.01">
+		</label>
+
+        <label>Published
+			<input type="checkbox" name="isPublished">
+		</label>
+
+		<select name="category">
+			{% for category in categories %}
+				<option value="{{ category.id }}">{{ category.title}}</option>
+			{% endfor %}
+        </select>
+
+		<input type="submit">
+	</form>
+
+</main>
+{% endblock main %}
