@@ -18,7 +18,8 @@
             <th>Catégorie</th>
             <th>Date de création</th>
             <th>Date de modification</th>
-            <th>Action</th>
+            <th>Action 1</th>
+            <th>Action 2</th>
           </tr>
 
 
@@ -38,6 +39,7 @@
               {% endif %}
             </td>
             <td><a href="{{ path('admin/delete-product', { 'id': product.id }) }}">Supprimer</a></td>
+            <td><a href="{{ path('admin/update-product', { 'id': product.id }) }}">Mettre à jour</a></td>
           </tr>
 
         {% endfor %}

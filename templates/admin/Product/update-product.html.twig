@@ -1,0 +1,46 @@
+{% extends 'admin/base.html.twig' %}
+
+        {% block metatitle %}
+        <title>Update-product</title>
+        {% endblock metatitle %}
+
+{% block main %}
+<main>
+
+	<h1>Editer un produit</h1>
+
+	<form method="POST">
+		<label for="title">Titre
+			<input type="text" name="title" value="{{product.title}}">
+		</label>
+
+		<label for="description">Description
+			<input type="text" name="description" value="{{product.description}}">
+		</label>
+
+		<label for="price">Prix
+			<input type="number" name="price" value="{{product.price}}">
+		</label>
+
+		<label for="is-published">Publié ?
+			<input type="checkbox" name="isPublished" value="{{product.isPublished}}">
+		</label>
+
+
+		<select name="category">
+			{% for category in categories %}
+				{% if category.id == product.category.id %} 
+					<option selected="selected" value="{{ category.id }}">{{ category.title }}</option>
+				{% else %}
+					<option value="{{ category.id }}">{{ category.title }}</option>
+				{% endif %}
+			{% endfor %}
+		</select>
+
+		<button type="submit">Modifier le produit</button>
+
+
+	</form>
+
+</main>
+{% endblock main %}

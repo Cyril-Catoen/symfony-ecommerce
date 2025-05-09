@@ -79,11 +79,46 @@ class AdminProductController extends AbstractController {
 			$entityManager->remove($product);
 			$entityManager->flush();
 	
-			// On ajoute un message flash pour notifier que l'article est supprimé
+			// On ajoute un message flash pour notifier que le produit est supprimé
 			$this->addFlash('success', 'The product has been deleted');
 	
 			// On redirige vers la page de liste mis à jour
-			return $this->redirectToRoute('admin/list-product');
+			return $this->redirectToRoute('admin/product/list-product');
+		}
+
+        #[Route('/admin/update-product/{id}', name: "admin/update-product")]
+		public function updateproduct($id, Request $request, ProductRepository $productRepository, CategoryRepository $categoryRepository, EntityManagerInterface $entityManager) {
+			$product = $productRepository->find($id);
+            $categories = $categoryRepository->findAll();
+		
+			if (!$product) {
+				$this->addFlash('error', 'Produit non trouvé.');
+				return $this->redirectToRoute('admin/list-product');
+			}
+		
+			if ($request->isMethod("POST")) { // On récupère les nouvelles données si le formulaire est soumis.
+
+                $title = $request->request->get('title');
+                $description = $request->request->get('description');
+                $price = $request->request->get('price');
+                $isPublished = $request->request->get('isPublished') !== null;
+                // On récupère l'id de la catégorie sélectionné par l'utilisateur
+                $categoryId = $request->request->get('category');
+                // On récupère la catégorie complète liée à l'id récupéré (grâce à la classe CategoryRepository)
+                $category = $categoryRepository->find($categoryId);
+    
+    
+           	 	$product->update($title, $description, $price, $isPublished, $category);
+
+            	$entityManager->persist($product); // Enregistre dans la base de données l'product créé
+				$entityManager->flush();
+		
+				$this->addFlash('success', 'Produit mis à jour avec succès.');
+		
+				return $this->redirectToRoute('admin/list-product');
+			}
+		
+			return $this->render('admin/product/update-product.html.twig', ['product' => $product, 'categories' => $categories]);
 		}
 }
 ?>

@@ -53,6 +53,16 @@ class Product
 
 	}
 
+    public function update($title, $description, $price, $isPublished, $category) {
+        $this->title = $title;
+		$this->description = $description;
+		$this->price = $price;
+        $this->category = $category;
+
+        $this->updatedAt = new \DateTime();
+        $this->isPublished = $isPublished;
+    }
+
     public function getId(): ?int
     {
         return $this->id;
