@@ -19,6 +19,7 @@ security:
             form_login:
                 login_path: login
                 check_path: login
+                default_target_path: admin/list-product
             logout:
                 path: logout
 

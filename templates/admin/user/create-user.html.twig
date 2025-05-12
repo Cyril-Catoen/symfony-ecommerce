@@ -1,0 +1,20 @@
+{% extends 'admin/base.html.twig' %}
+
+{% block main %}
+
+	<h1>Créer un admin</h1>
+
+	<form method="POST">
+		<label for="email">Email
+			<input type="email" name="email">
+		</label>
+
+		<label for="password">Mot de passe
+			<input type="password" name="password">
+		</label>
+
+		<button type="submit">Créer l'admin</button>
+
+	</form>
+
+{% endblock %}
