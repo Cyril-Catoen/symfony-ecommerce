@@ -7,19 +7,24 @@
 {% block main %}
 
 	<h1>Se connecter</h1>
+
+
+	{% if error %}
+		<p>Mauvais identifiants</p>
+	{% endif %}
 	
-	<form method="POST">
+<form method="POST">
 
-		<label> Email
-			<input type="email" name="_username">
-		</label>
+        <label> Email
+            <input type="email" name="_username">
+        </label>
 
 
-		<label> Mot de passe
-			<input type="password" name="_password">
-		</label>
+        <label> Mot de passe
+            <input type="password" name="_password">
+        </label>
 
-		<button type="submit">Se connecter</button>
-	
-	</form>
+        <button type="submit">Se connecter</button>
+
+    </form>
 {% endblock main %}
