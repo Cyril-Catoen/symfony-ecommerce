@@ -11,7 +11,9 @@
 	{% endfor %}
 
     
-    <p>Connecté en tant que : {{ app.user.email }} <p>
+   {% if app.user %}
+    <p>Connecté en tant que : {{ app.user.email }}</p>
+    {% endif %}
 
     {% block main %}
     {% endblock main %}

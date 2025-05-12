@@ -30,6 +30,13 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      */
     #[ORM\Column]
     private ?string $password = null;
+    
+    public function createAdmin($email, $passwordHashed) {
+        $this->email = $email;
+        $this->password = $passwordHashed;
+
+        $this->roles = ['ROLE_ADMIN'];
+    }
 
     public function getId(): ?int
     {
