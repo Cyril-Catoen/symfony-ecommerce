@@ -16,6 +16,25 @@ class ProductRepository extends ServiceEntityRepository
         parent::__construct($registry, Product::class);
     }
 
+    public function findByTitleContain(string $search) {
+
+        $queryBuilder = $this->createQueryBuilder('product');
+
+
+        $query = $queryBuilder->select('product')
+            // le fait d'utiliser les parametres (donc mettre la variable
+            // contenant la recherche utilisateur en deux temps)
+            // permet de sécuriser la requête SQL (éviter les injections SQL)
+            // c'est à dire, vérifier que la recherche utilisateur ne contient
+            // de requête SQL (attaque)
+            ->where('product.title LIKE :search')
+            ->setParameter('search', '%'.$search.'%')
+            ->getQuery();
+
+        return $query->getResult();
+
+    }
+
   
     // public function findAllPublished($isPublished = true) {
     // return $this->createQueryBuilder('p')
