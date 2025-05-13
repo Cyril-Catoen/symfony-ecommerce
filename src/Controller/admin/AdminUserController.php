@@ -5,6 +5,7 @@ namespace App\Controller\admin;
 
 use App\Entity\User;
 use Doctrine\ORM\EntityManagerInterface;
+use Exception;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
@@ -36,11 +37,20 @@ class AdminUserController extends AbstractController {
 			// méthode retenue
 			$user->createAdmin($email, $passwordHashed);
 
-            
+            try {
 			$entityManager->persist($user);
 			$entityManager->flush();
 
-			$this->addFlash('success','Admin créé');
+			$this->addFlash('success','Admin créé'); 
+
+            } catch(Exception $exception) {
+
+            $this->addFlash('error', 'Impossible de créer l\'admin');
+
+            // Si le code erreur est 1062 (clé d'unicité), le message est complété par l'information relative à cette contrainte non respectée.
+            if ($exception->getCode() === '1062') {
+                $this->addFlash('error',  'Email déjà pris.');
+            }
 
 
 			// dump($email);
@@ -52,6 +62,5 @@ class AdminUserController extends AbstractController {
 		return $this->render('/admin/user/create-user.html.twig');
 
 	}
-
-
+    }
 }
