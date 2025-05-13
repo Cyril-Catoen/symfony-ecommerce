@@ -61,10 +61,10 @@ class ProductController extends AbstractController {
 
         $productsFound = $productRepository->findByTitleContain($search);
 
-		dd($productsFound);
-
-
-
+		return $this->render('guest/product/search-results.html.twig', [
+			'search' => $search,
+			'productsFound' => $productsFound
+		]);
 	}
 }
 ?>

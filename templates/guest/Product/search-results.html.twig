@@ -1,0 +1,24 @@
+{% extends 'guest/base.html.twig' %}
+
+{% block metatitle %}
+	BricoParts| Résultats de recherche des produits
+{% endblock metatitle %}
+
+{% block main %}
+
+	<h1>Résultats de recherche pour "{{ search }}" : </h1>
+
+	{% for product in productsFound %} 
+
+		<article>
+
+			<h2>{{ product.title }}</h2>
+			<p>{{ product.description }}</p>
+			<p>Categorie : {{ product.category.title }}</p>
+			
+			<a href="{{ path('single-product', { 'id': product.id }) }}">Voir ce produit</a>
+
+		</article>
+
+	{% endfor %}
+{% endblock main %}

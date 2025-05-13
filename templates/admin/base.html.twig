@@ -13,9 +13,10 @@
 
     <p>Connecté en tant que : {{ app.user.email }} <p>
 
+    <main>
     {% block main %}
-    
     {% endblock main %}
+    </main>
 
       
 {% include 'admin/partials/_footer.html.twig' %}
