@@ -25,4 +25,9 @@
                     <li><a href="{{ path('login') }}">Log in</a></li>
                 </ul>
             </nav>
+
+            	<form action="{{ path('product-search-results') }}" method="GET">
+                    <input type="text" name="search">
+                    <button type="submit">Rechercher les produits</button>
+                </form>
     </header>

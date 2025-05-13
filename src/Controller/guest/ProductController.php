@@ -53,5 +53,16 @@ class ProductController extends AbstractController {
 			'product' => $product
 		]);
 	}
+
+    #[Route(path: '/product-results-search', name:'product-results-search', methods: ['GET'])]
+	public function displayResultsSearchProducts(Request $request) {
+		
+		$search = $request->query->get('search');
+
+		dd($search);
+
+
+
+	}
 }
 ?>
