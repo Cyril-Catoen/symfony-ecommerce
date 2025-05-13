@@ -5,6 +5,7 @@ namespace App\Controller\admin;
 use App\Entity\Product;
 use App\Repository\ProductRepository;
 use App\Entity\Category;
+use Exception;
 use App\Repository\CategoryRepository;
 use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\EntityManagerInterface;
@@ -73,17 +74,27 @@ class AdminProductController extends AbstractController {
 		{
 			// On cible le produit à supprimer par son id unique.
 			$product = $productRepository->find($id);
+            
+            if (!$product) {
+                return $this->redirectToRoute('/admin/404');
+            }
+
+            try {
+                // On utilise la méthode remove de la classe EntityManager 
+                // On prend en paramètre le produit à supprimer
+                $entityManager->remove($product);
+                $entityManager->flush();
 	
-			// On utilise la méthode remove de la classe EntityManager 
-			// On prend en paramètre le produit à supprimer
-			$entityManager->remove($product);
-			$entityManager->flush();
-	
-			// On ajoute un message flash pour notifier que le produit est supprimé
-			$this->addFlash('success', 'The product has been deleted');
-	
+	    		// On ajoute un message flash pour notifier que le produit est supprimé
+		    	$this->addFlash('success', 'The product has been deleted');
+                return $this->redirectToRoute('admin/list-product');
+
+            } catch(Exception $exception) {
+                $this->addFlash('error', "Le produit n'a pas été supprimé.");
+            }
+            
 			// On redirige vers la page de liste mis à jour
-			return $this->redirectToRoute('admin/product/list-product');
+			return $this->redirectToRoute('admin/list-product');
 		}
 
         #[Route('/admin/update-product/{id}', name: "admin/update-product")]

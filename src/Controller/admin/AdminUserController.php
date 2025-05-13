@@ -39,12 +39,12 @@ class AdminUserController extends AbstractController {
 			$user->createAdmin($email, $passwordHashed);
 
             try {
-			$entityManager->persist($user);
-			$entityManager->flush();
+                $entityManager->persist($user);
+                $entityManager->flush();
 
-			$this->addFlash('success','Admin créé'); 
-            // On redirige vers la page de liste mis à jour
-			return $this->redirectToRoute('admin/list-user');
+                $this->addFlash('success','Admin créé'); 
+                // On redirige vers la page de liste mis à jour
+                return $this->redirectToRoute('admin/list-user');
 
             } catch(Exception $exception) {
 
@@ -57,10 +57,9 @@ class AdminUserController extends AbstractController {
             }
 			// dump($email);
 			// dump($passwordHashed); die;
-		
         }
-		return $this->render('/admin/user/create-user.html.twig');
 
+		return $this->render('/admin/user/create-user.html.twig');
 	}
 
     #[Route('/admin/list-user', name: 'admin/list-user')]
