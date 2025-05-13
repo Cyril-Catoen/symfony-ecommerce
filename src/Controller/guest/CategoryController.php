@@ -35,7 +35,7 @@ class CategoryController extends AbstractController {
 		// Alors l'utilisateur est redirigé vers une page d'erreur 404.
 		// Sinon l'category avec l'id correspond est affiché.
 		if (!$category) {
-			return $this->redirectToRoute('404');
+			return $this->redirectToRoute('/guest/404');
 		}
 		return $this->render('guest\category\selected-category.html.twig', [
 			'category' => $category
