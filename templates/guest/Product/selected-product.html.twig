@@ -1,30 +1,24 @@
 {% extends 'guest/base.html.twig' %}
 
         {% block metatitle %}
-        <title>List-product</title>
+        <title>Single-product</title>
         {% endblock metatitle %}
 
 {% block main %}
-
 <main>
 
-    <section id="article-order">
-	
-		{% for product in products %}
-
+    <section>
 			<article style="background-color: grey">
 				<h2>{{ product.title }}</h2>
-                <p>{{ product.description}}</p>
-                <p>Prix : {{ product.price }} euros</p>
+				<p>{{ product.description }}</p>
+				<p>Prix : {{ product.price }} euros</p>
               	<p>Créé le {{ product.createdAt | date()}}</p>
                 <p>Modifié le {{ product.updatedAt | date()}}</p>
                 <p>{{ product.isPublished}}</p>
-                <a href="{{ path('single-product', { 'id': product.id }) }}">Voir ce produit</a>
 			</article>
-
-		{% endfor %}
-
 	</section>
+
+
 
 </main>
 {% endblock main %}

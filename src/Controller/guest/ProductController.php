@@ -27,9 +27,30 @@ class ProductController extends AbstractController {
         //     }
         // }
 
+        if (!$products) {
+			return $this->redirectToRoute('/guest/404');
+        }
+
         return $this->render('guest/product/list-product.html.twig', [
             'products' => $products
         ]);
     }
+
+    #[Route('/single-product/{id}', name: 'single-product')]
+	public function displaySinglecategories($id, productRepository $productRepository) {
+
+		// permet de faire une requête SQL SELECT * sur la table product et de sélectionner un item par ID
+		$product = $productRepository->find($id);
+
+		// Si l'id demandé ne correspond à aucun product
+		// Alors l'utilisateur est redirigé vers une page d'erreur 404.
+		// Sinon l'product avec l'id correspond est affiché.
+		if (!$product) {
+			return $this->redirectToRoute('/guest/404');
+		}
+		return $this->render('guest\product\selected-product.html.twig', [
+			'product' => $product
+		]);
+	}
 }
 ?>
