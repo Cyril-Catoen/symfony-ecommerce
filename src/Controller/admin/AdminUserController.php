@@ -15,7 +15,7 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class AdminUserController extends AbstractController {
 
-	#[Route('/admin/create-user', name: 'admin/create-user')]
+	#[Route('/admin/create-user', name: 'admin/create-user', methods: ['GET', 'POST'])]
 	public function displayCreateUser(Request $request, UserPasswordHasherInterface $userPasswordHasher, EntityManagerInterface $entityManager): Response {
         // On utilise les composants de Symfony pour gérer le hash du Password et la création de l'utilisateur
 
@@ -63,7 +63,7 @@ class AdminUserController extends AbstractController {
 		return $this->render('/admin/user/create-user.html.twig');
 	}
 
-    #[Route('/admin/list-user', name: 'admin/list-user')]
+    #[Route('/admin/list-user', name: 'admin/list-user', methods: ['GET'])]
 	public function displayListUser(UserRepository $UserRepository): Response {
         // On utilise les composants de Symfony pour gérer le hash du Password et la création de l'utilisateur
 

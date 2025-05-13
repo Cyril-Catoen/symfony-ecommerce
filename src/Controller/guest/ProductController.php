@@ -14,7 +14,7 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class ProductController extends AbstractController {
     
-    #[Route('/list-product', name: 'list-product')]
+    #[Route('/list-product', name: 'list-product', methods: ['GET'])]
     public function displayListProduct(ProductRepository $ProductRepository): Response {
 
         // Récupérer tous les produits
@@ -37,7 +37,7 @@ class ProductController extends AbstractController {
         ]);
     }
 
-    #[Route('/single-product/{id}', name: 'single-product')]
+    #[Route('/single-product/{id}', name: 'single-product', methods: ['GET'])]
 	public function displaySinglecategories($id, productRepository $productRepository): Response {
 
 		// permet de faire une requête SQL SELECT * sur la table product et de sélectionner un item par ID
