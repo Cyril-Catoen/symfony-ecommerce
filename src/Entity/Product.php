@@ -43,6 +43,10 @@ class Product
             throw new Exception('Le titre doit faire plus de 3 caractères');
         }
 
+        if ($price > 1000) {
+            throw new Exception('Le prix doit être inférieur à 1000');
+        }
+
 		$this->title = $title;
 		$this->description = $description;
 		$this->price = $price;

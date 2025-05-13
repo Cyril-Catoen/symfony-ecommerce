@@ -11,7 +11,7 @@ class LoginController extends AbstractController {
 
 
 	#[Route('/login', name: "login")]
-	public function displayLogin(AuthenticationUtils $authenticationUtils) {
+	public function displayLogin(AuthenticationUtils $authenticationUtils): Response {
 
 		$error = $authenticationUtils->getLastAuthenticationError();
 

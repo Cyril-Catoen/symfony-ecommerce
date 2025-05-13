@@ -14,7 +14,7 @@ use Symfony\Component\Routing\Annotation\Route;
 class CategoryController extends AbstractController {
     
     #[Route('/list-category', name: 'list-category')]
-	public function displayListCategories(CategoryRepository $categoryRepository) {
+	public function displayListCategories(CategoryRepository $categoryRepository): Response {
 
 		// permet de faire une requête SQL SELECT * sur la table category
 		$categories = $categoryRepository->findAll();
@@ -26,7 +26,7 @@ class CategoryController extends AbstractController {
 	}
 
     #[Route('/single-category/{id}', name: 'single-category')]
-	public function displaySinglecategories($id, categoryRepository $categoryRepository) {
+	public function displaySinglecategories($id, categoryRepository $categoryRepository): Response {
 
 		// permet de faire une requête SQL SELECT * sur la table category et de sélectionner un item par ID
 		$category = $categoryRepository->find($id);

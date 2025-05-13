@@ -16,7 +16,7 @@ use Symfony\Component\Routing\Annotation\Route;
 class AdminProductController extends AbstractController {
     
     #[Route('/admin/list-product', name: 'admin/list-product')]
-    public function displayListProduct(ProductRepository $ProductRepository) {
+    public function displayListProduct(ProductRepository $ProductRepository): Response {
 
         // Récupérer tous les produits
         $products = $ProductRepository->findBy(['isPublished' => true]);
@@ -35,7 +35,7 @@ class AdminProductController extends AbstractController {
     }
 
     #[Route('/admin/create-product', name: 'admin/create-product')]
-    public function displayCreateProduct(Request $request, categoryRepository $categoryRepository, EntityManagerInterface $entityManager) {
+    public function displayCreateProduct(Request $request, categoryRepository $categoryRepository, EntityManagerInterface $entityManager): Response {
         $categories = $categoryRepository->findAll(); // On récupère l'ensemble des catégories du repository
 
         if ($request->isMethod("POST")) {
@@ -70,8 +70,7 @@ class AdminProductController extends AbstractController {
     }
 
     #[Route('/admin/delete-product/{id}', name: "admin/delete-product")]
-	public function deleteProduct($id, ProductRepository $productRepository, EntityManagerInterface $entityManager) 
-		{
+	public function deleteProduct($id, ProductRepository $productRepository, EntityManagerInterface $entityManager): Response {
 			// On cible le produit à supprimer par son id unique.
 			$product = $productRepository->find($id);
             
@@ -98,7 +97,7 @@ class AdminProductController extends AbstractController {
 		}
 
         #[Route('/admin/update-product/{id}', name: "admin/update-product")]
-		public function updateproduct($id, Request $request, ProductRepository $productRepository, CategoryRepository $categoryRepository, EntityManagerInterface $entityManager) {
+		public function updateproduct($id, Request $request, ProductRepository $productRepository, CategoryRepository $categoryRepository, EntityManagerInterface $entityManager): Response {
 			$product = $productRepository->find($id);
             $categories = $categoryRepository->findAll();
 		

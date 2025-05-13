@@ -9,7 +9,7 @@ use Symfony\Component\Routing\Annotation\Route;
 class AdminPageController extends AbstractController {
 
 	#[Route('/admin/404', name: "/admin/404")]
-	public function display404() {
+	public function display404(): Response {
 
 		// La fonction render renvoie automatiquement une erreur 200.
 		// On ne peut pas paramétrer render pour avoir une erreur 404.

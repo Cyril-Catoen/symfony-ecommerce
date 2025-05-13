@@ -15,7 +15,7 @@ use Symfony\Component\Routing\Annotation\Route;
 class AdminUserController extends AbstractController {
 
 	#[Route('/admin/create-user', name: 'admin/create-user')]
-	public function displayCreateUser(Request $request, UserPasswordHasherInterface $userPasswordHasher, EntityManagerInterface $entityManager){
+	public function displayCreateUser(Request $request, UserPasswordHasherInterface $userPasswordHasher, EntityManagerInterface $entityManager): Response {
         // On utilise les composants de Symfony pour gérer le hash du Password et la création de l'utilisateur
 
 		if ($request->isMethod('POST')) {
@@ -63,7 +63,7 @@ class AdminUserController extends AbstractController {
 	}
 
     #[Route('/admin/list-user', name: 'admin/list-user')]
-	public function displayListUser(UserRepository $UserRepository){
+	public function displayListUser(UserRepository $UserRepository): Response {
         // On utilise les composants de Symfony pour gérer le hash du Password et la création de l'utilisateur
 
             // Récupérer tous les users
