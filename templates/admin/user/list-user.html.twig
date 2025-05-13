@@ -1,0 +1,39 @@
+{% extends 'admin/base.html.twig' %}
+
+        {% block metatitle %}
+        <title>List-users</title>
+        {% endblock metatitle %}
+
+{% block main %}
+
+<main>
+
+    <section id="article-order">
+
+      <table>
+          <tr>
+            <th>Id</th>
+            <th>Email</th>
+            <th>Role</th>
+          </tr>
+
+
+        {% for user in users %} 
+
+          <tr>
+            <td>{{ user.id }}</td>
+            <td>{{ user.email }}</td>
+            <td>
+                {% for role in user.roles %}
+						<p>{{ role }}</p>
+				{% endfor %}
+            </td>
+
+        {% endfor %}
+
+      </table>
+
+	</section>
+
+</main>
+{% endblock main %}
