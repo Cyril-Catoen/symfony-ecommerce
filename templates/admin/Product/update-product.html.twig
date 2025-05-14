@@ -9,7 +9,8 @@
 
 	<h1>Editer un produit</h1>
 
-	<form method="POST">
+	<form method="POST" enctype="multipart/form-data">
+
 		<label for="title">Titre
 			<input type="text" name="title" value="{{product.title}}">
 		</label>
@@ -36,6 +37,10 @@
 				{% endif %}
 			{% endfor %}
 		</select>
+
+		<label for="image">Image
+			<input type="file" name="image">
+		</label>
 
 		<button type="submit">Modifier le produit</button>
 

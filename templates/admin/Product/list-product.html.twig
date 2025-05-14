@@ -20,6 +20,7 @@
             <th>Date de modification</th>
             <th>Action 1</th>
             <th>Action 2</th>
+            <th>Image</th>
           </tr>
 
 
@@ -40,7 +41,16 @@
             </td>
             <td><a href="{{ path('admin/delete-product', { 'id': product.id }) }}">Supprimer</a></td>
             <td><a href="{{ path('admin/update-product', { 'id': product.id }) }}">Mettre à jour</a></td>
+            
+            <td>
+              {% if product.image %}
+                  <img src="{{ asset('uploads/' ~ product.image) }}" alt="{{ product.title }}">
+              {% else %}
+                  <p>Pas d'image</p>
+              {% endif %}
+            </td>
           </tr>
+
 
         {% endfor %}
 

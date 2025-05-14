@@ -40,7 +40,7 @@ class Product
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $image = null;
 
-    public function __construct($title, $description, $price, $isPublished, $category) {
+    public function __construct($title, $description, $price, $isPublished, $category, string $imageNewName) {
 
         if (strlen($title) < 3) {
             throw new Exception('Le titre doit faire plus de 3 caractères');
@@ -54,17 +54,21 @@ class Product
 		$this->description = $description;
 		$this->price = $price;
         $this->category = $category;
+        $this->image = $imageNewName;
 
 		$this->createdAt = new \DateTime();
 		$this->isPublished = $isPublished;
 
 	}
 
-    public function update($title, $description, $price, $isPublished, $category) {
+    public function update($title, $description, $price, $isPublished, $category, ?string $imageNewName = null) {
         $this->title = $title;
 		$this->description = $description;
 		$this->price = $price;
         $this->category = $category;
+        if ($imageNewName !== null) {
+            $this->image = $imageNewName;
+        }
 
         $this->updatedAt = new \DateTime();
         $this->isPublished = $isPublished;
@@ -170,4 +174,5 @@ class Product
 
         return $this;
     }
+    
 }

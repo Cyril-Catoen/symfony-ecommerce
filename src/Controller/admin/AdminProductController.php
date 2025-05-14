@@ -10,6 +10,7 @@ use App\Repository\CategoryRepository;
 use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -36,7 +37,7 @@ class AdminProductController extends AbstractController {
     }
 
     #[Route('/admin/create-product', name: 'admin/create-product', methods: ['GET', 'POST'])]
-    public function displayCreateProduct(Request $request, categoryRepository $categoryRepository, EntityManagerInterface $entityManager): Response {
+    public function displayCreateProduct(Request $request, categoryRepository $categoryRepository, EntityManagerInterface $entityManager, ParameterBagInterface $parameterBag): Response {
         $categories = $categoryRepository->findAll(); // On récupère l'ensemble des catégories du repository
 
         if ($request->isMethod("POST")) {
@@ -48,10 +49,21 @@ class AdminProductController extends AbstractController {
 			$categoryId = $request->request->get('category');
 			// On récupère la catégorie complète liée à l'id récupéré (grâce à la classe CategoryRepository)
 			$category = $categoryRepository->find($categoryId);
+            $image = $request->files->get('image');
+
+            	// si une image a bien été envoyée
+			if ($image) {
+				// je créé un nouveau nom unique pour l'image et je rajoute l'extension
+				// originale de l'image (.jpg ou .png etc)
+				$imageNewName = uniqid() . '.' . $image->guessExtension();
+				// je déplace l'image dans le dossier /public/uploads (je récupère le chemin du dossier grâce à la classe parameterbag) 
+				// et je la renomme avec le nouveau nom
+				$image->move($parameterBag->get('kernel.project_dir').'/public/uploads', $imageNewName);
+			}
 
             try {
              // On créé une instance de product
-            $product = new Product($title, $description, $price, $isPublished, $category);
+            $product = new Product($title, $description, $price, $isPublished, $category, $imageNewName);
             
             $entityManager->persist($product);
             $entityManager->flush();
@@ -98,14 +110,17 @@ class AdminProductController extends AbstractController {
 		}
 
         #[Route('/admin/update-product/{id}', name: "admin/update-product", methods: ['GET', 'POST'])]
-		public function updateproduct($id, Request $request, ProductRepository $productRepository, CategoryRepository $categoryRepository, EntityManagerInterface $entityManager): Response {
+		public function updateproduct($id, Request $request, ProductRepository $productRepository, CategoryRepository $categoryRepository, EntityManagerInterface $entityManager, ParameterBagInterface $parameterBag): Response {
 			$product = $productRepository->find($id);
             $categories = $categoryRepository->findAll();
-		
-			if (!$product) {
+
+            if (!$product) {
 				$this->addFlash('error', 'Produit non trouvé.');
 				return $this->redirectToRoute('admin/list-product');
 			}
+
+            
+		
 		
 			if ($request->isMethod("POST")) { // On récupère les nouvelles données si le formulaire est soumis.
 
@@ -117,9 +132,19 @@ class AdminProductController extends AbstractController {
                 $categoryId = $request->request->get('category');
                 // On récupère la catégorie complète liée à l'id récupéré (grâce à la classe CategoryRepository)
                 $category = $categoryRepository->find($categoryId);
+                $image = $request->files->get('image');
+                // si une image a bien été envoyée
+                if ($image) {
+                // je créé un nouveau nom unique pour l'image et je rajoute l'extension
+                // originale de l'image (.jpg ou .png etc)
+                $imageNewName = uniqid() . '.' . $image->guessExtension();
+                // je déplace l'image dans le dossier /public/uploads (je récupère le chemin du dossier grâce à la classe parameterbag) 
+                // et je la renomme avec le nouveau nom
+                $image->move($parameterBag->get('kernel.project_dir').'/public/uploads', $imageNewName);
+                }
     
     
-           	 	$product->update($title, $description, $price, $isPublished, $category);
+           	 	$product->update($title, $description, $price, $isPublished, $category, $imageNewName);
 
             	$entityManager->persist($product); // Enregistre dans la base de données l'product créé
 				$entityManager->flush();

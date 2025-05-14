@@ -8,7 +8,10 @@
 <main>
 
 	<h1>Ajouter un produit</h1>
-	<form action="" method="POST">
+	<!-- {# quand un formulaire contient des données normales + des fichiers (images etc) 
+	 il faut ajouter l'attribut enctype="multipart/form-data" au formulaire
+	#} -->
+	<form method="POST" enctype="multipart/form-data">
 
 		<label>Title
 			<input type="text" name="title">
